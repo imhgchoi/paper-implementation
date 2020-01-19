@@ -11,8 +11,15 @@ def get_args():
     argp.add_argument('--en_dir', type=str, default='./data/europarl-v7.fr-en.en')
     argp.add_argument('--out_dir', type=str, default='./out/')
 
+    # preprocess
     argp.add_argument('--seed', type=int, default=1)
 
+    # model
+    argp.add_argument('--emb_dim', type=int, default=512)
+    argp.add_argument('--N', type=int, default=6)
+
+    # train
+    argp.add_argument('--batchsize', type=int, default=20)
 
 
     return argp.parse_args()

@@ -24,6 +24,13 @@ class Dataset():
     def save_as_csv(self):
         pair_df = pd.DataFrame(list(zip(self.raw_en, self.raw_fr)), columns= ['en','fr'])
         train, test = train_test_split(pair_df, test_size=0.15, random_state=self.config.seed)
+        # train['enlen'] = train['en'].apply(lambda x : len(x.split(' ')))
+        # train['frlen'] = train['fr'].apply(lambda x : len(x.split(' ')))
+        # train = train[train['enlen'] == train['frlen']][['en','fr']]
+        #
+        # test['enlen'] = train['en'].apply(lambda x : len(x.split(' ')))
+        # test['frlen'] = train['fr'].apply(lambda x : len(x.split(' ')))
+        # test = test[test['enlen'] == test['frlen']][['en','fr']]
 
         print('English-French Pair Size : {}'.format(len(pair_df)))
         print('Train Set Size : {}'.format(len(train)))

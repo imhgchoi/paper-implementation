@@ -12,6 +12,7 @@ def get_args():
     argp.add_argument('--out_dir', type=str, default='./out/')
 
     # preprocess
+    argp.add_argument('--data_num', type=int, default=50000)
     argp.add_argument('--seed', type=int, default=1)
 
     # model

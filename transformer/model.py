@@ -8,14 +8,15 @@ class Transformer(nn.Module):
     def __init__(self, config, dataset):
         super().__init__()
         self.config = config
-        self.dataset = dataset
+        self.fr_vocab_size = dataset.fr_vocabsize
+        self.en_vocab_size = dataset.en_vocabsize
 
-        self.input_embedding = nn.Embedding(self.dataset.fr_vocabsize, self.config.emb_dim)
-        self.output_embedding = nn.Embedding(self.dataset.en_vocabsize, self.config.emb_dim)
+        self.input_embedding = nn.Embedding(self.fr_vocab_size, self.config.emb_dim)
+        self.output_embedding = nn.Embedding(self.en_vocab_size, self.config.emb_dim)
         self.encoders = nn.ModuleList([Encoder(config) for _ in range(self.config.N)])
         self.decoders = nn.ModuleList([Decoder(config) for _ in range(self.config.N)])
 
-        self.linear = nn.Linear(self.config.emb_dim, self.dataset.en_vocabsize)
+        self.linear = nn.Linear(self.config.emb_dim, self.en_vocab_size)
 
     def pos_enc(self, em):
         pe = torch.zeros(em.shape[0],em.shape[2])

@@ -12,7 +12,7 @@ def get_args():
     argp.add_argument('--out_dir', type=str, default='./out/')
 
     # preprocess
-    argp.add_argument('--data_num', type=int, default=50000)
+    argp.add_argument('--data_num', type=int, default=15000)
     argp.add_argument('--seed', type=int, default=1)
 
     # model
@@ -21,11 +21,19 @@ def get_args():
     argp.add_argument('--headnum', type=int, default=8)  # emb_dim % headnum == 0
     argp.add_argument('--enc_dropout', type=float, default=0.1)
     argp.add_argument('--dec_dropout', type=float, default=0.1)
+    argp.add_argument('--reset_model', action='store_true', default=False)
+    argp.add_argument('--model_name', type=str, default='transformer')
 
     # train
-    argp.add_argument('--epoch_num', type=int, default=1000)
-    argp.add_argument('--batchsize', type=int, default=20)
+    argp.add_argument('--epoch_num', type=int, default=100)
+    argp.add_argument('--batchsize', type=int, default=50)
     argp.add_argument('--learning_rate', type=float, default=1e-5)
-
+    argp.add_argument('--use_dynamic_lr', action='store_true', default=False)
+    argp.add_argument('--warmup_steps', type=int, default=4000)   # for dynamic lr
+    argp.add_argument('--lr_scale', type=int, default=1e+9)   # for dynamic lr
+    argp.add_argument('--print_step', type=int, default=10)
+    argp.add_argument('--save_step', type=int, default=10)
+    argp.add_argument('--hard_labels', action='store_true', default=False)  # for label smoothing
+    argp.add_argument('--smooth_rate', type=float, default=0.1)  # for label smoothing
 
     return argp.parse_args()

@@ -147,7 +147,7 @@ class Decoder(nn.Module):
         mm_scaled = [torch.matmul(Q, K.transpose(1, 2))/(self.config.emb_dim/self.config.headnum)**(1/2)
                      for Q, K in zip(Qs, Ks)]          # headnum * batchsize * sent length * sent length
         # masking
-        mask = torch.ones(mm_scaled[0].shape).cuda()
+        mask = torch.zeros(mm_scaled[0].shape).cuda()
         for i in range(mask.shape[0]):
             for j in range(mask.shape[1]):
                 for k in range(mask.shape[2]) :

@@ -11,7 +11,7 @@ THINGS TO TALK ABOUT ON 1.28
 2. <sos><eos>the phenomenon
 3. Label Smoothing
 4. Save & Load Models
-5. Dynamic Learning Rate --> Did not turn out nice
+5. Dynamic Learning Rate --> Did not turn out nice --> scaling parameter added 
 6. Miscellaneous : plot losses & print out examples
 7. Q: further NLP preprocessing needed?  cf. punctuations : blank space in front of question/exclamation marks in French
 """

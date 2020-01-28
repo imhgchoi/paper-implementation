@@ -22,7 +22,7 @@ def get_args():
     argp.add_argument('--enc_dropout', type=float, default=0.1)
     argp.add_argument('--dec_dropout', type=float, default=0.1)
     argp.add_argument('--reset_model', action='store_true', default=False)
-    argp.add_argument('--model_name', type=str, default='transformer')
+    argp.add_argument('--model_name', type=str, default='transformer2')
 
     # train
     argp.add_argument('--epoch_num', type=int, default=100)

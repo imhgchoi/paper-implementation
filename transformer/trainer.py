@@ -41,9 +41,10 @@ class Trainer():
             scheduler = optim.lr_scheduler.LambdaLR(optimizer,dynamic_lr)
 
         if self.config.reset_model :
-            tr_losses, te_losses = [], []
+            tr_losses, te_losses, tr_bleus, te_bleus = [], [], [], []
         else :
-            with open('./out/losses.pkl', 'rb') as f : tr_losses, te_losses = pickle.load(f)
+            with open('./out/losses_{}.pkl'.format(self.config.model_name), 'rb') as f :
+                tr_losses, te_losses, tr_bleus, te_bleus = pickle.load(f)
             f.close()
 
         steps = 0
@@ -66,7 +67,8 @@ class Trainer():
                 optimizer.step()
 
                 # train evaluation
-                self.evaluator.evaluate(epoch, idx, steps, self.model, fr, en, loss.item(), optimizer, mode='TRAIN')
+                tr_bleu = self.evaluator.evaluate(epoch, idx, steps, self.model, fr, en, out,
+                                                  loss.item(), optimizer, mode='TRAIN')
 
                 # a rather rough way to keep the test set generator going without StopIteration
                 try :
@@ -77,15 +79,19 @@ class Trainer():
 
                 # test evaluation
                 if steps % self.config.test_step == 0 :
-                    te_loss = self.evaluator.evaluate(None, None, steps, self.model, te_bat.fr, te_bat.en, criterion, None, mode='TEST')
+                    te_loss, te_bleu = self.evaluator.evaluate(None, None, steps, self.model, te_bat.fr, te_bat.en,
+                                                               None, criterion, None, mode='TEST')
                     tr_losses.append(loss.item())
                     te_losses.append(te_loss)
-                    self.plot_figures(tr_losses, te_losses)
+                    tr_bleus.append(tr_bleu)
+                    te_bleus.append(te_bleu)
+                    self.plot_figures(tr_losses, te_losses, tr_bleus, te_bleus)
 
                 # save models and plot losses
                 if steps % self.config.save_step == self.config.save_step-1 :
                     torch.save(self.model, './out/{}.mdl'.format(self.config.model_name))
-                    with open('./out/losses.pkl','wb') as f : pickle.dump([tr_losses, te_losses], f)
+                    with open('./out/losses_{}.pkl'.format(self.config.model_name),'wb') as f :
+                        pickle.dump([tr_losses, te_losses, tr_bleus, te_bleus], f)
                     f.close()
 
                 steps += 1
@@ -105,12 +111,23 @@ class Trainer():
             else :
                 return False
 
-    def plot_figures(self, tr_losses, te_losses):
+    def plot_figures(self, tr_losses, te_losses, tr_bleus, te_bleus):
+        # Loss
         plt.plot(tr_losses)
         plt.plot(te_losses)
         plt.title('Train & Test Loss Curve')
         plt.xlabel('Steps [ every {} step ]'.format(self.config.test_step))
         plt.ylabel('Loss')
         plt.legend(['train','test'])
-        plt.savefig('./img/loss.png')
+        plt.savefig('./img/loss_{}.png'.format(self.config.model_name))
+        plt.close()
+
+        # BLEU score
+        plt.plot(tr_bleus)
+        plt.plot(te_bleus)
+        plt.title('Train & Test BLEU Score')
+        plt.xlabel('Steps [ every {} step ]'.format(self.config.test_step))
+        plt.ylabel('BLEU Score')
+        plt.legend(['train','test'])
+        plt.savefig('./img/bleu_{}.png'.format(self.config.model_name))
         plt.close()

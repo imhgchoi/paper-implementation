@@ -76,7 +76,9 @@ class Dataset():
         self.fr_vocabsize = len(FRENCH.vocab)
 
         if self.config.debug :
-            train_loader, test_loader = Iterator.splits((train, test), batch_size=2, device="cuda", shuffle=False)
+            train_loader, test_loader = Iterator.splits((train, test), batch_size=2, device="cuda", shuffle=False,
+                                                        sort_key=lambda x : len(x.en), sort_within_batch=False)
         else :
-            train_loader, test_loader = Iterator.splits((train, test), batch_size=self.config.batchsize, device="cuda", shuffle=False)
+            train_loader, test_loader = Iterator.splits((train, test), batch_size=self.config.batchsize, device="cuda", shuffle=False,
+                                                        sort_key=lambda x : len(x.en), sort_within_batch=False)
         return train_loader, test_loader

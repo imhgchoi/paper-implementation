@@ -33,6 +33,7 @@ def get_args():
     argp.add_argument('--lr_scale', type=int, default=1e+5)   # for dynamic lr
     argp.add_argument('--print_step', type=int, default=10)
     argp.add_argument('--save_step', type=int, default=10)
+    argp.add_argument('--test_step', type=int, default=5)
     argp.add_argument('--hard_labels', action='store_true', default=False)  # to turn off label smoothing
     argp.add_argument('--smooth_rate', type=float, default=0.1)  # for label smoothing
 

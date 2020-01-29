@@ -6,14 +6,12 @@
 """
 
 """
-THINGS TO TALK ABOUT ON 1.28
-1. Data Preprocessing : sorting by length & dropping
-2. <sos><eos>the phenomenon
-3. Label Smoothing
+THINGS TO TALK ABOUT ON 2.5
+1. <sos><eos>the phenomenon --> Data Preprocessing : sorting by length & dropping
+2. Label Smoothing
+3. Dynamic Learning Rate --> Did not turn out nice --> scaling parameter added 
 4. Save & Load Models
-5. Dynamic Learning Rate --> Did not turn out nice --> scaling parameter added 
-6. Miscellaneous : plot losses & print out examples & early stop
-7. Q: further NLP preprocessing needed?  cf. punctuations : blank space in front of question/exclamation marks in French
+5. Miscellaneous : plot losses & print out examples & early stop
 """
 
 from config import get_args

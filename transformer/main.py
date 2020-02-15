@@ -5,14 +5,6 @@
 | As the model size is big, this model can be trained only on GPU
 """
 
-"""
-THINGS TO TALK ABOUT ON 2.5
-1. <sos><eos>the phenomenon --> Data Preprocessing : sorting by length & dropping
-2. Label Smoothing
-3. Dynamic Learning Rate --> Did not turn out nice --> scaling parameter added 
-4. Save & Load Models
-5. Miscellaneous : plot losses & print out examples & early stop
-"""
 
 from config import get_args
 from dataset import Dataset

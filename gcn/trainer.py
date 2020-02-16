@@ -61,7 +61,6 @@ class Trainer():
                         dill.dump([tr_losses, vl_losses, tr_accs, vl_accs, tr_f1s, vl_f1s], f)
                     f.close()
 
-
                 # plot
                 if step % self.config.plot_step == 0 :
                     self.plot_figures(tr_losses, vl_losses, tr_accs, vl_accs, tr_f1s, vl_f1s)
@@ -71,7 +70,7 @@ class Trainer():
                 if converged :
                     break
             if converged:
-                print('Model Converged...')
+                print('Model for {} Converged...'.format(self.config.datatype))
                 self.plot_figures(tr_losses, vl_losses, tr_accs, vl_accs, tr_f1s, vl_f1s)
                 self.evaluator.test(model, self.data_loader)
                 break

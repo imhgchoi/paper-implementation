@@ -9,7 +9,7 @@ class Dataset():
         self.loader = self.get_loader()
 
     def get_dataset(self, datatype):
-        if self.config.renew_data :
+        if self.config.reset_data :
             if datatype == 'cora' :
                 data = datasets.Planetoid(root=self.config.datadir, name='Cora')
             elif datatype == 'citeseer':
@@ -17,7 +17,7 @@ class Dataset():
             elif datatype == 'pubmed' :
                 data = datasets.Planetoid(root=self.config.datadir, name='PubMed')
             else :
-                data = None
+                raise ValueError
 
             with open(self.config.datadir+'dat.pkl', 'wb') as f :
                 pickle.dump(data, f)

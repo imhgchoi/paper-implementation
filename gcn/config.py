@@ -9,8 +9,8 @@ def get_args():
     argp.add_argument('--datadir', type=str, default='./data/')
 
     # data
-    argp.add_argument('--renew_data', action='store_true', default=False)
-    argp.add_argument('--datatype', nargs='+', type=str, default='cora', choices=['cora','citeseer','pubmed'])
+    argp.add_argument('--reset_data', action='store_true', default=False)
+    argp.add_argument('--datatype', type=str, default='cora', choices=['cora','citeseer','pubmed'])
 
     # model
     argp.add_argument('--reset_model', action='store_true', default=False)

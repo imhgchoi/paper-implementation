@@ -32,6 +32,7 @@ def main():
     evaluator = Evaluator(config)
     trainer = Trainer(config, dataset.loader, evaluator)
     trained_model = trainer.train(model)
+    torch.save(trained_model.state_dict(), './out/models/{}_{}.mdl'.format(config.model_name, config.datatype))
 
 
 if __name__ == "__main__" :

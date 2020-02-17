@@ -2,4 +2,4 @@
 
 re-implementation of Graph Convoultional Networks
 
-dataset : [TBA]()
+dataset : Cora, CiteSeer, PubMed

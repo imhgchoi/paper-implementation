@@ -1,6 +1,7 @@
 from torch_geometric import datasets
 from torch_geometric.data import DataLoader
 import pickle
+import shutil
 
 class Dataset():
     def __init__(self, config):
@@ -10,10 +11,12 @@ class Dataset():
 
     def get_dataset(self, datatype):
         if self.config.reset_data :
+            shutil.rmtree(self.config.datadir+'processed/')
             if datatype == 'cora' :
                 data = datasets.Planetoid(root=self.config.datadir, name='Cora')
             elif datatype == 'citeseer':
                 data = datasets.Planetoid(root=self.config.datadir, name='CiteSeer')
+                print(data)
             elif datatype == 'pubmed' :
                 data = datasets.Planetoid(root=self.config.datadir, name='PubMed')
             else :

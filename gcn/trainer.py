@@ -86,7 +86,7 @@ class Trainer():
     def print_current(self, epoch, tr_loss, vl_loss, tr_acc, vl_acc, tr_fscore, vl_fscore):
         print("EPOCH {0} ::: TRAIN LOSS = {1:.4f} | ACC = {2:.4f} | F1 = {3:.2f}"
                        " ::: VALID LOSS = {4:.4f} | ACC = {5:.4f} | F1 = {6:.2f}"
-              .format(epoch, tr_loss.item(), tr_acc, tr_fscore, vl_loss.item(), vl_acc, vl_fscore))
+              .format(epoch+1, tr_loss.item(), tr_acc, tr_fscore, vl_loss.item(), vl_acc, vl_fscore))
 
     def plot_figures(self, tr_losses, vl_losses, tr_accs, vl_accs, tr_f1s, vl_fs):
         # Loss
@@ -96,7 +96,7 @@ class Trainer():
         plt.xlabel('Steps')
         plt.ylabel('Loss')
         plt.legend(['train','val'])
-        plt.savefig('./img/loss_{}.png'.format(self.config.model_name))
+        plt.savefig('./img/loss_{}_{}.png'.format(self.config.datatype, self.config.model_name))
         plt.close()
 
         # Accuracy
@@ -106,7 +106,7 @@ class Trainer():
         plt.xlabel('Steps')
         plt.ylabel('Accuracy')
         plt.legend(['train','val'])
-        plt.savefig('./img/acc_{}.png'.format(self.config.model_name))
+        plt.savefig('./img/acc_{}_{}.png'.format(self.config.datatype, self.config.model_name))
         plt.close()
 
         # F1 Score
@@ -116,5 +116,5 @@ class Trainer():
         plt.xlabel('Steps')
         plt.ylabel('F1 Score')
         plt.legend(['train','val'])
-        plt.savefig('./img/f1_{}.png'.format(self.config.model_name))
+        plt.savefig('./img/f1_{}_{}.png'.format(self.config.datatype, self.config.model_name))
         plt.close()

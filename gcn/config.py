@@ -15,8 +15,9 @@ def get_args():
     # model
     argp.add_argument('--reset_model', action='store_true', default=False)
     argp.add_argument('--use_pyg', action='store_true', default=False)
-    argp.add_argument('--conv_layers', nargs='+', default=[64,32])
-    argp.add_argument('--fc_layers', nargs='+', default=[32])
+    argp.add_argument('--use_base', action='store_true', default=False)
+    argp.add_argument('--conv_layers', nargs='+', default=[32,32])
+    argp.add_argument('--fc_layers', nargs='+', default=[])
     argp.add_argument('--save_step', type=int, default=5)
 
     # training
